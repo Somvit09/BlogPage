@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{image_url}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{title}}</h1>
+            <h2 class="subheading">{{subtitle}}</h2>
+            <span class="meta">Posted by
+              <a href="{{post_url}}">{{author}}</a>
+              on {{date}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <p> {{body}}</p>
+            <a href="{% url 'edit_post' id %}"><button type="button" class="btn btn-info">Edit Post</button></a>
+          <hr>
+          <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
+<script type="text/javascript">
+    CKEDITOR.replace( "comment_body", {
+        language: "",
+        height: 0,
+        width: 0,
+        codeSnippet_theme: "monokai_sublime",
+        imageUploadUrl: "",
+        filebrowserUploadUrl: "",
+        filebrowserBrowseUrl: "",
+        extraPlugins: "",
+         // CSRF token header for XHR request
+
+    });
+</script>
+
+<form action="" method="post"
+  class="form" role="form" novalidate>
+  <input id="csrf_token" name="csrf_token" type="hidden" value="ImEzZTI0Y2ZhOTdjYjgxZWUxNTc5NDg1ZjAzNGEwZWZiN2IzMWRiMTgi.ZGTQFQ.AYSSuyiYJfmQhzDZwSVEh62uSSw">
+<div class="form-group  required"><label class="control-label" for="comment_body">Comment</label>
+          <textarea class="ckeditor form-control" id="comment_body" name="comment_body" required>
+</textarea>
+
+  </div>
+    <input class="btn btn-primary" id="submit" name="submit" type="submit" value="Submit Comment">
+</form>
+
+<!--           Comments Area -->
+          <div class="col-lg-8 col-md-10 mx-auto comment">
+
+            </div>
+          </div>
+      </div>
+    </div>
+  </article>
+
+{% endblock %}

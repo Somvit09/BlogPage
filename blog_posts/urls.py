@@ -14,4 +14,8 @@ urlpatterns = [
     path('make_post/', views.make_post, name='make_post'),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
+    # rest site admin views
+    path('api/blogposts/', views.BlogPostListAPIView.as_view(), name='blogpost-list'),
+    path('api/blogposts/create/', views.BlogPostCreateAPIView.as_view(), name='blogpost-create'),
+    path('api/blogposts/<int:pk>/', views.BlogPostDetailAPIView.as_view(), name='blogpost-detail'),
 ]

@@ -39,6 +39,7 @@ def home(request):
             'title': post.title,
             'subtitle': post.subtitle,
             'author': post.api_author_name,
+            'user_author':post.author_name,
             'id': post.id,
             'date': post.date,
             'image_url': post.image_url,
@@ -143,9 +144,9 @@ def make_post(request):
         subtitle = request.POST['subtitle']
         image_url = request.POST['img_url']
         body = request.POST['body']
-        author = request.user.username
+        user = User.objects.get(username=request.user.username)
         new_post = BlogPost(title=title, subtitle=subtitle,
-                            image_url=image_url, body=body, api_author_name=author)
+                            image_url=image_url, body=body, author_name=user)
         new_post.save()
         messages.success(request, "New post created.")
         return redirect('home')
@@ -203,5 +204,23 @@ def delete_post(request, id):
 #         }
 #         return render(request, 'post.html', data)
 #     return redirect('show_post', id)
+
+
+# site admin view rest framework views
+
+from rest_framework import generics
+from .serializers import BlogPostSerializer
+
+class BlogPostListAPIView(generics.ListAPIView):
+    queryset = BlogPost.objects.all()
+    serializer_class = BlogPostSerializer
+
+class BlogPostCreateAPIView(generics.CreateAPIView):
+    queryset = BlogPost.objects.all()
+    serializer_class = BlogPostSerializer
+
+class BlogPostDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = BlogPost.objects.all()
+    serializer_class = BlogPostSerializer
 
 

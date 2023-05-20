@@ -23,7 +23,7 @@
       <div class="col-lg-8 col-md-10 mx-auto">
         {% include 'messages.html' %}
 
-
+        {% if request.user.is_authenticated %}
         {% for i in context %}
         <div class="post-preview">
           <a href="{% url 'show_post' i.id %}">
@@ -35,13 +35,17 @@
             </h3>
           </a>
           <p class="post-meta">Posted by
+            {% if i.author %}
             {{i.author}}
-            on {{i.date}}  {% if request.user.is_authenticated %}<a href="{% url 'edit_post' i.id %}">Edit Post</a>
-            <a href="{% url 'delete_post' i.id %}">Delete Post</a>{% endif %}
+            {% else %}
+            {{i.user_author}}
+            {% endif %}
+            on {{i.date}}  <a href="{% url 'edit_post' i.id %}">Edit Post</a>
+            <a href="{% url 'delete_post' i.id %}">Delete Post</a>
           </p>
         </div>
         {% endfor %}
-
+        {% endif %}
 
 
         <!-- New Post -->

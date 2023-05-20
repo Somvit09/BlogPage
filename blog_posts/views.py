@@ -187,3 +187,21 @@ def delete_post(request, id):
     messages.success(request, "Post Deleted.")
     return redirect('home')
 
+
+# def comments(request, id):
+#     if request.method == "POST":
+#         text = request.POST['comment_body']
+#         user = User.objects.get(username=request.user.username)
+#         user_commentted = user
+#         commentted_post = BlogPost.objects.get(id=id)
+#         post = commentted_post
+#         comment = Comment(text=text, user_commentted=user_commentted, post=post)
+#         comment.save()
+#         data = {
+#             'text': text,
+#             'user': user.username,
+#         }
+#         return render(request, 'post.html', data)
+#     return redirect('show_post', id)
+
+

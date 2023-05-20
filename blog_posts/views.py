@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages, auth
-from django.contrib.auth.models import User
+from .models import User
 from django.contrib.auth import login as auth_login, authenticate, logout as user_logged_out
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.validators import validate_email
@@ -55,6 +55,7 @@ def login(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             auth_login(request, user)
+            print(request.user.is_authenticated)
             messages.success(request, "User logged in successfully.")
             return redirect('home')   
         else:
@@ -72,6 +73,7 @@ def register(request):
 
         emai_exists = User.objects.filter(email=email)
         username_exists = User.objects.filter(username=username)
+        print(emai_exists, username_exists)
         if emai_exists.exists() or username_exists.exists():
             messages.error(request, "email or username already taken, try different email or username.")
             return redirect('register')
@@ -105,7 +107,9 @@ def register(request):
 
 
 def logout(request):
+    print(request.user.is_authenticated)
     user_logged_out(request)
+    print(request.user.is_authenticated)
     messages.success(request, 'User logged out successfully.')
     return redirect('home')
 

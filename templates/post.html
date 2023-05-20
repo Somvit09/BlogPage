@@ -27,7 +27,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p> {{body}}</p>
+            <p> {{body | safe}}</p>
             <a href="{% url 'edit_post' id %}"><button type="button" class="btn btn-info">Edit Post</button></a>
           <hr>
           <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
